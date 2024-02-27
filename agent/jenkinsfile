@@ -4,7 +4,7 @@ pipeline {
     stages{
         stage('Build') {
             steps {
-                sh 'sleep 5'
+                sh 'sleep 10'
             }
 
         }
@@ -15,7 +15,7 @@ pipeline {
                 sh '''
                 #!/bin/bash
                 ls -lrt
-                sleep 5
+                sleep 10
                 '''
             }
 
