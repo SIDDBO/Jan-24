@@ -1,12 +1,18 @@
 pipeline {
     agent none
-    stages{
+        parameters{
+ string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?') 
+}
+
+   stages{
         stage('Build') {
             agent {
                 label 'Slave_2'
             }
                 steps {
-                    sh 'sleep 10'
+                    sh '''
+                    echo "Hello $(params.$Person)"
+                    "sleep 10'
                 }
 
         }
