@@ -1,41 +1,42 @@
 pipeline {
     agent none
         parameters{
- string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?') 
-}
-
-   stages{
-        stage('Build') {
-            agent {
-                label 'Slave_2'
-            }
-                steps {
-                    sh '''
-                    echo "Hello $(params.$Person)"
-                    "sleep 10'
-                }
-
+            string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?') 
         }
+
+        stages{
+            stage('Build') {
+                 agent {
+                 label 'Slave_2'
+                }
+                steps {
+                    echo "Hello ${params.PERSON}"
+                    sh '''
+                      sleep 10
+                        '''
+                    }
+
+            }
     
        
-        stage('Test') {
-            agent {
-                label 'Slave_1'
-            }
-            steps{
+            stage('Test') {
+                agent {
+                    label 'Slave_1'
+                }
+                steps{
                 catchError(buildResult : 'SUCCESS', stageResult : 'FAILURE') {
                     sh '''
                         sleep 10
                         exit 1
                         '''
+                    }
                 }
-            }
                 
-        }
-        stage('deploy') {
-            agent {
-                label 'Slave_2'
             }
+            stage('deploy') {
+                agent {
+                    label 'Slave_2'
+                }
                 steps {
                     sh '''
                     #!/bin/bash
@@ -43,6 +44,6 @@ pipeline {
                     sleep 10
                     '''
                 }
-        }
-     } 
+            }
+        } 
 }
