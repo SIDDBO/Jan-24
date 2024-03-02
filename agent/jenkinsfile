@@ -16,13 +16,15 @@ pipeline {
             agent {
                 label 'Slave_1'
             }
-            
+            catchError (buildResult : 'SUCCESS', stageResult : 'FAILED') {
                 steps {
                     sh '''
                         sleep 10
                         exit 1
                         '''
                 }
+            }
+                
         }
         stage('deploy') {
             agent {
