@@ -46,11 +46,13 @@ pipeline {
             }
         }
         post {
-                    always {
-                        emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
-                            to: 'siddeshsiddu064@gmail.com'
-                    }
-            }    
-        }    
+        always {
+            echo 'Sending emails ...'
+            emailext recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                    subject: '${DEFAULT_SUBJECT}', body: '${DEFAULT_CONTENT}',
+                    to: "${env.EMAIL_RECIPIENTS},\$DEFAULT_RECIPIENTS"
+        }
+    }
+}    
         
      
