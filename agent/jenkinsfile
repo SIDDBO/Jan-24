@@ -54,7 +54,7 @@ pipeline {
             echo 'Sending emails ...'
             emailext recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
                     subject: '${DEFAULT_SUBJECT}', body: '${DEFAULT_CONTENT}',
-                    to: "${env.EMAIL_RECIPIENTS},\$DEFAULT_RECIPIENTS"
+                    to: "${env.EMAIL_RECIPIENTS}"
         }
     }
 }    
