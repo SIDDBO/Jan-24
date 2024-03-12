@@ -10,7 +10,7 @@ pipeline {
 
         stage('triggerChildJob') {
             steps {
-                build job: "trigger", wait:true
+                build job: "TriggerJob", wait:true
             }
         }
     }
