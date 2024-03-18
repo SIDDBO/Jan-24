@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    
+    parameters {
+        // Define parameters for two numbers and the operation
+        string(name: 'number1', defaultValue: '0', description: 'Enter first number')
+        string(name: 'number2', defaultValue: '0', description: 'Enter second number')
+        choice(name: 'operation', choices: ['Addition', 'Subtraction', 'Multiplication', 'Division'], description: 'Select operation')
+    }
+    
+    stages {
+        stage('Calculate') {
+            steps {
+                script {
+                    // Convert string parameters to integers
+                    def num1 = params.number1.toInteger()
+                    def num2 = params.number2.toInteger()
+                    def result
+                    
+                    // Perform selected operation
+                    switch (params.operation) {
+                        case 'Addition':
+                            result = num1 + num2
+                            break
+                        case 'Subtraction':
+                            result = num1 - num2
+                            break
+                        case 'Multiplication':
+                            result = num1 * num2
+                            break
+                        case 'Division':
+                            result = num1 / num2
+                            break
+                        default:
+                            error("Invalid operation selected")
+                    }
+                    
+                    // Output the result
+                    echo "Result of ${params.operation} ${num1} and ${num2} is ${result}"
+                }
+            }
+        }
+    }
+}
