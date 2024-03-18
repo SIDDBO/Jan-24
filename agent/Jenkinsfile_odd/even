@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    
+    parameters {
+        // Define parameter for the set of numbers (comma-separated)
+        string(name: 'NUMBERS', defaultValue: '1,2,3,4,5', description: 'Enter numbers separated by commas')
+        choice(name: 'EVEN_OR_ODD', choices: ['Even', 'Odd'], description: 'Select Even or Odd')
+    }
+    
+    stages {
+        stage('Find Even or Odd Numbers') {
+            steps {
+                script {
+                    def numbersList = params.NUMBERS.split(',').collect { it.toInteger() }
+                    def evenOrOdd = params.EVEN_OR_ODD
+                    
+                    echo "${evenOrOdd} numbers in the set of numbers ${params.NUMBERS}:"
+                    
+                    numbersList.each { num ->
+                        if ((evenOrOdd == 'Even' && num % 2 == 0) || (evenOrOdd == 'Odd' && num % 2 != 0)) {
+                            echo "$num"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
