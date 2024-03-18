@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    
+    parameters {
+        // Define parameters for the range of numbers
+        string(name: 'START', defaultValue: '1', description: 'Start of range')
+        string(name: 'END', defaultValue: '100', description: 'End of range')
+    }
+    
+    stages {
+        stage('Find Even Numbers') {
+            steps {
+                script {
+                    def startNum = params.START.toInteger()
+                    def endNum = params.END.toInteger()
+                    
+                    echo "Even numbers between $startNum and $endNum:"
+                    
+                    for (int i = startNum; i <= endNum; i++) {
+                        if (i % 2 == 0) {
+                            echo "$i"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
