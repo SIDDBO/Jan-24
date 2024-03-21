@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                // Your build steps here
+                sh 'echo "Building..."'
+            }
+        }
+        stage('Notify') {
+            steps {
+                script {
+                    // Get the build number
+                    def buildNumber = env.BUILD_NUMBER
+                    // Send email notification
+                    emailext(
+                        subject: "Build #${buildNumber}",
+                        body: "Your build #${buildNumber} has completed successfully.",
+                        to: "your@email.com",
+                        attachLog: true
+                    )
+                }
+            }
+        }
+    }
+}
