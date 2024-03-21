@@ -16,7 +16,7 @@ pipeline {
                     emailext(
                         subject: "Build #${buildNumber}",
                         body: "Your build #${buildNumber} has completed successfully.",
-                        to: "your@email.com",
+                        to: "siddeshsiddu064@gmail.com",
                         attachLog: true
                     )
                 }
