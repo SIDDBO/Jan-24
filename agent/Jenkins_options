@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    options {
+        disableConcurrentBuilds()
+    }
+    stages {
+        stage('Parallel Stage') {
+            parallel {
+                stage('Branch A') {
+                    steps {
+                        // Task A
+                    }
+                }
+                stage('Branch B') {
+                    steps {
+                        // Task B
+                    }
+                }
+            }
+        }
+    }
+}
