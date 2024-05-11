@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         AWS_DEFAULT_REGION = 'ap-south-1'
-        EMAIL_RECIPIENTS = siddeshsiddu064@gmail.com
+        EMAIL_RECIPIENTS = 'siddeshsiddu064@gmail.com'
     }
     
     stages {
