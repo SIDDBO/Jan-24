@@ -39,7 +39,7 @@ pipeline {
                         subject: "Build ${currentBuild.fullDisplayName} ${currentBuild.result}",
                          body: """ 
                          <p>Instances without the Owner tag.</p>
-                         <p>instanceIDs: ${env.MISSING_OWNER_INSTANCES_IDS}</p>
+                         <p>instanceIDs: "${env.MISSING_OWNER_INSTANCES_IDS}"</p>
                           """,
                         to: "${env.EMAIL_RECIPIENTS}"
             }    }        
