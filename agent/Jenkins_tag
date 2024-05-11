@@ -13,8 +13,8 @@ pipeline {
             }
             steps {
                 script {
-                    withAWS(credentials: 'AWS_ACCESS_KEY_ID')
-                    sh '''
+                    withAWS(credentials: 'AWS_ACCESS_KEY_ID') {
+                        sh '''
                     missing_owner_instances=$(aws ec2 describe-instances   --output text   --query 'Reservations[].Instances[?!not_null(Tags[?Key == `owner`].Value)] | [].[InstanceId]')
                       if [[ -z $missing_owner_instances ]]; then
                             echo "All instances have the 'Owner' tag attached."
@@ -23,6 +23,8 @@ pipeline {
                               echo "$missing_owner_instances"
                       fi
                       '''
+                    }
+                    
                     }
                 }
             }
