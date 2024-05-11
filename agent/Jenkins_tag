@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     
     environment {
         AWS_DEFAULT_REGION = 'ap-south-1'
@@ -8,6 +8,9 @@ pipeline {
     
     stages {
         stage('Find Instance IDs Without Tag Owner') {
+            agent {
+                label 'Slave_1'
+            }
             steps {
                 script {
                   sh '''
@@ -25,6 +28,9 @@ pipeline {
         }
         post {
             always {
+                agent {
+                    label 'Slave_2'
+                }
                 echo 'Sending emails ...'
                 emailext recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
                         subject: '${DEFAULT_SUBJECT}', body: '${DEFAULT_CONTENT}',
