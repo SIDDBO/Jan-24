@@ -2,11 +2,12 @@ pipeline {
     agent any
     
     environment {
-        AWS_DEFAULT_REGION = 'your_region'
+        AWS_DEFAULT_REGION = 'ap-south-1'
+        EMAIL_RECIPIENTS = siddeshsiddu064@gmail.com
     }
     
     stages {
-        stage('Find Instance IDs') {
+        stage('Find Instance IDs Without Tag Owner') {
             steps {
                 script {
                   sh '''
@@ -22,5 +23,11 @@ pipeline {
                 }
             }
         }
-    }
-}
+        post {
+            always {
+                echo 'Sending emails ...'
+                emailext recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+                        subject: '${DEFAULT_SUBJECT}', body: '${DEFAULT_CONTENT}',
+                        to: "${env.EMAIL_RECIPIENTS}"
+            }    }        
+    }    
