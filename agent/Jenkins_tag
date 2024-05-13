@@ -25,7 +25,7 @@ pipeline {
                       else
                              echo "Instances without the 'Owner' tag:"
                               echo "$missing_owner_instances"
-                              "export MISSING_INSTANCES = '${missing_owner_instances}'" 
+                              env.MISSING_INSTANCES = missing_owner_instances 
                       fi
                       '''
                     }
