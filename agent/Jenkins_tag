@@ -39,7 +39,7 @@ pipeline {
                 echo 'Sending emails ...'
                 emailext (
                     subject: "EC2 instances without 'Owner' tag detected",
-                      body: "The following EC2 instances do not have the 'Owner' tag: ${missing_owner_instances}",
+                      body: "The following EC2 instances do not have the 'Owner' tag:",
                         to: "${env.EMAIL_RECIPIENTS}"
 
                 )
