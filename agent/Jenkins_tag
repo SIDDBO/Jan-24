@@ -24,8 +24,7 @@ pipeline {
                             echo "All instances have the 'Owner' tag attached."
                       else
                              echo "Instances without the 'Owner' tag:"
-                              echo "$missing_owner_instances"
-                              env.MISSING_INSTANCES = missing_owner_instances 
+                              env.MISSING_INSTANCES = echo "$missing_owner_instances"
                       fi
                       '''
                     }
@@ -35,7 +34,7 @@ pipeline {
         post {
             always {
                 agent {
-                    label 'Slave_2'
+                    label 'Slave_1'
                 }
                 echo 'Sending emails ...'
                 emailext (
