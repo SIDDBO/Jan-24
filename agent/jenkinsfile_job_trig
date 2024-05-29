@@ -11,7 +11,7 @@ pipeline {
         stage('triggerChildJob') {
             steps {
                 build job: "TriggerJob", wait:true
-            // New changes
+            // New changes 1
             }
         }
     }
